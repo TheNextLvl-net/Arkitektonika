@@ -35,6 +35,7 @@ dependencies {
 }
 
 tasks.shadowJar {
+    archiveFileName.set("${project.name}.jar")
     minimize()
 }
 
