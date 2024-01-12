@@ -1,6 +1,7 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import com.google.gson.JsonObject;
+import core.nbt.NBTInputStream;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
 import org.slf4j.Logger;
@@ -10,9 +11,13 @@ import spark.Response;
 import spark.Spark;
 
 import javax.servlet.MultipartConfigElement;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 public class UploadRouter {
     private static final Logger logger = LoggerFactory.getLogger(UploadRouter.class);
@@ -37,10 +42,36 @@ public class UploadRouter {
             response.status(400);
             return "Missing file";
         }
+        try (var output = new ByteArrayOutputStream();
+             var input = schematic.getInputStream()) {
+            input.transferTo(output);
+            return validate(response, output, fileName);
+        } catch (Exception e) {
+            logger.error("Failed to persist data in table", e);
+            response.status(500);
+            return "Failed to persist data in table";
+        }
+    }
 
-        // todo: validate nbt format
+    private static String validate(Response response, ByteArrayOutputStream output, String fileName) throws SQLException {
+        var maxSchematicSize = Arkitektonika.CONFIG.maxSchematicSize();
+        if (output.size() > maxSchematicSize) {
+            logger.error("Invalid request due to file size: {} bytes (max {} bytes)", output.size(), maxSchematicSize);
+            response.status(413);
+            return "Submitted NBT file exceeds max size of " + maxSchematicSize + " bytes";
+        }
+        try (var nbt = new NBTInputStream(new ByteArrayInputStream(output.toByteArray()))) {
+            nbt.readNamedTag();
+            return persist(fileName, output);
+        } catch (IOException e) {
+            logger.error("Invalid request due to nbt content: {}", e.getMessage());
+            response.status(400);
+            return "File is not a valid NBT";
+        }
+    }
 
-        try (var input = schematic.getInputStream()) {
+    private static String persist(String fileName, ByteArrayOutputStream output) throws SQLException, IOException {
+        try (var input = new ByteArrayInputStream(output.toByteArray())) {
             var downloadKey = Arkitektonika.DATA_STORAGE.generateDownloadKey();
             var deletionKey = Arkitektonika.DATA_STORAGE.generateDeletionKey();
             Arkitektonika.DATA_STORAGE.createSchematic(new Schematic(
@@ -53,10 +84,6 @@ public class UploadRouter {
             json.addProperty("download_key", downloadKey);
             json.addProperty("delete_key", deletionKey);
             return json.toString();
-        } catch (Exception e) {
-            logger.error("Failed to persist data in table", e);
-            response.status(500);
-            return "Failed to persist data in table";
         }
     }
 }
