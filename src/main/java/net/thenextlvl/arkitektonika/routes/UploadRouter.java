@@ -62,7 +62,7 @@ public class UploadRouter {
         }
         try (var nbt = new NBTInputStream(new ByteArrayInputStream(output.toByteArray()))) {
             nbt.readNamedTag();
-            return persist(fileName, output);
+            return persist(response, fileName, output);
         } catch (IOException e) {
             logger.error("Invalid request due to nbt content: {}", e.getMessage());
             response.status(400);
@@ -70,7 +70,7 @@ public class UploadRouter {
         }
     }
 
-    private static String persist(String fileName, ByteArrayOutputStream output) throws SQLException, IOException {
+    private static String persist(Response response, String fileName, ByteArrayOutputStream output) throws SQLException, IOException {
         try (var input = new ByteArrayInputStream(output.toByteArray())) {
             var downloadKey = Arkitektonika.DATA_STORAGE.generateDownloadKey();
             var deletionKey = Arkitektonika.DATA_STORAGE.generateDeletionKey();
@@ -80,6 +80,7 @@ public class UploadRouter {
             Files.copy(input, new File(Arkitektonika.SCHEMATIC_FOLDER, downloadKey).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
             logger.info("Persisted file {} (downloadKey: {}, deletionKey: {})", fileName, downloadKey, deletionKey);
+            response.status(200);
             var json = new JsonObject();
             json.addProperty("download_key", downloadKey);
             json.addProperty("delete_key", deletionKey);
