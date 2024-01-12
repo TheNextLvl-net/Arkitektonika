@@ -17,18 +17,18 @@ configurable age by running the prune script~. Files can always be deleted via t
 ### With Docker
 
 ```sh
-git clone https://github.com/TheNextLvl-net/Arkitektonika.git
-cd Arkitektonika
+git clone https://github.com/TheNextLvl-net/Arkitektonika.git &&
+cd Arkitektonika &&
 docker compose up
 ```
 
 ### From scratch
 
 ```sh
-git clone https://github.com/TheNextLvl-net/Arkitektonika.git
-cd Arkitektonika
-./gradlew shadowJar
-java -jar build/libs/arkitektonika.jar
+git clone https://github.com/TheNextLvl-net/Arkitektonika.git &&
+cd Arkitektonika &&
+./gradlew shadowJar &&
+java -jar $(find build/libs/ -name "*.jar" -print -quit)
 ```
 
 ## Configuration
