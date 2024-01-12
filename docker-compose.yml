@@ -4,6 +4,9 @@ services:
     build: .
     restart: unless-stopped
     volumes:
-      - "data:/app/data"
+      - "data:/app"
     ports:
       - "3000:3000"
+volumes:
+  data:
+    name: arkitektonika

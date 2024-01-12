@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.github.johnrengelman.shadow") version "8.0.0"
 }
 
 group = "net.thenextlvl.arkitektonika"
@@ -32,11 +32,6 @@ dependencies {
     implementation("net.thenextlvl.core:nbt:1.3.9")
 
     annotationProcessor("org.projectlombok:lombok:1.18.30")
-}
-
-tasks.shadowJar {
-    archiveFileName.set("${project.name}.jar")
-    minimize()
 }
 
 tasks.jar {
