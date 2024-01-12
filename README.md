@@ -6,25 +6,21 @@
 
 ---
 
+The original resource by IntellectualSites can be found [here](https://github.com/IntellectualSites/Arkitektonika) 
+
 Arkitektonika is a REST repository for NBT data. It accepts uploads of valid NBT data and stores them in a local folder
-while accounting for its metadata in a local sqlite database. Optionally, uploaded files can be expired based on the
-configurable age by running the prune script. Files can always be deleted via their deletion key.
-
-Example Instances:
-
-| Address                           | Expiry     |
-|-----------------------------------|------------|
-| https://api.schematic.cloud/      | 30 days    |
+while accounting for its metadata in a local sqlite database. ~Optionally, uploaded files can be expired based on the
+configurable age by running the prune script~. Files can always be deleted via their deletion key.
 
 ## To Run
 
 ### With Docker
 
 ```sh
-docker pull intellectualsites/arkitektonika
+git clone https://github.com/TheNextLvl-net/Arkitektonika.git
+cd Arkitektonika
+docker compose up
 ```
-
-Available on https://hub.docker.com/r/intellectualsites/arkitektonika
 
 ### From scratch
 
@@ -35,34 +31,6 @@ cd Arkitektonika
 java -jar build/libs/arkitektonika.jar
 ```
 
-### Build image locally
-
-Clone the entire repository and run the following commands:
-
-```sh
-docker build -t intellectualsites/arkitektonika:<TAG> .
-```
-
----
-
-Example docker compose:
-
-```yaml
-version: '3.8'
-
-services:
-  arkitektonika:
-    container_name: Arkitektonika
-    image: intellectualsites/arkitektonika:dev
-    restart: unless-stopped
-    volumes:
-      - ./data:/app/data # Mount the data folder (containing config file, database and schematic storage)
-    environment:
-      - LOG_LEVEL=DEBUG   # if debug logs should be printed to the console
-```
-
-`/app/data` is mounted to the host at `/data` as that folder contains persistent data.
-
 ## Configuration
 
 ```json
@@ -70,7 +38,8 @@ services:
   "port": 3000,
   "prune": 1800000,
   "maxSchematicSize": 1000000,
-  "limiter": {
+  "allowedOrigin": "*",
+  "limiter": { # not implemented yet
     "windowMs": 60000,
     "delayAfter": 30,
     "delayMs": 500
@@ -93,14 +62,14 @@ services:
 data
 ├── config.json
 ├── database.db
-└── schemata
+└── schemataics
     ├── fe65d7edc37149c47171962dc26a039b
     └── a98f299c5cf294e6555617e83226bcdd
 ```
 
 `config.json` holds the user configuration data <br>
 `database.db` holds the required data for each schematic <br>
-`schemata`    holds all schematic file data
+`schematics`  holds all schematic file data
 
 ### Routes
 
