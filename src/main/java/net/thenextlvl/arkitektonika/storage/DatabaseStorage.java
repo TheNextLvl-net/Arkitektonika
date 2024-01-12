@@ -49,7 +49,7 @@ public class DatabaseStorage implements DataStorage {
 
     @Override
     public void removeSchematic(Schematic schematic) throws SQLException {
-        executeUpdate("DELETE FROM accounting WHERE id = ?", schematic.id());
+        executeUpdate("DELETE FROM accounting WHERE delete_key = ?", schematic.deleteKey());
     }
 
     @Override
@@ -76,12 +76,12 @@ public class DatabaseStorage implements DataStorage {
 
     @Override
     public String generateDeletionKey() throws SQLException {
-        return generateUniqueKey("SELECT id FROM accounting WHERE delete_key = ? LIMIT 1");
+        return generateUniqueKey("SELECT last_accessed FROM accounting WHERE delete_key = ? LIMIT 1");
     }
 
     @Override
     public String generateDownloadKey() throws SQLException {
-        return generateUniqueKey("SELECT id FROM accounting WHERE download_key = ? LIMIT 1");
+        return generateUniqueKey("SELECT last_accessed FROM accounting WHERE download_key = ? LIMIT 1");
     }
 
     private String generateUniqueKey(String query) throws SQLException {
@@ -95,20 +95,15 @@ public class DatabaseStorage implements DataStorage {
     private void migrate() throws SQLException {
         executeUpdate("""
                 CREATE TABLE IF NOT EXISTS accounting (
-                    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     download_key CHAR(32) NOT NULL UNIQUE,
                     delete_key CHAR(32) NOT NULL UNIQUE,
                     filename CHAR(33) NOT NULL,
                     last_accessed INTEGER NOT NULL
                 )""");
-        executeUpdate("CREATE UNIQUE INDEX IF NOT EXISTS accounting_id_uindex ON accounting (id)");
-        executeUpdate("CREATE UNIQUE INDEX IF NOT EXISTS accounting_download_key_uindex ON accounting (download_key)");
-        executeUpdate("CREATE UNIQUE INDEX IF NOT EXISTS accounting_delete_key_uindex ON accounting (delete_key)");
     }
 
     private Schematic transformRowToRecord(ResultSet resultSet) throws SQLException {
         return new Schematic(
-                resultSet.getInt("id"),
                 resultSet.getString("download_key"),
                 resultSet.getString("delete_key"),
                 resultSet.getString("filename"),

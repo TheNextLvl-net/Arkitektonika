@@ -67,7 +67,7 @@ public class Arkitektonika {
         for (var record : DATA_STORAGE.getSchematics()) {
             if (new File(SCHEMATIC_FOLDER, record.downloadKey()).exists()) continue;
             DATA_STORAGE.removeSchematic(record);
-            logger.error("Removed schematic with id {} because no file system entry was present", record.id());
+            logger.info("Removed schematic {} because no file system entry was present", record.downloadKey());
             deletionCounter++;
         }
         return deletionCounter;
