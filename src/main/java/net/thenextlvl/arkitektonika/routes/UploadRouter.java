@@ -13,7 +13,6 @@ import javax.servlet.MultipartConfigElement;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
 
 public class UploadRouter {
     private static final Logger logger = LoggerFactory.getLogger(UploadRouter.class);
@@ -49,6 +48,7 @@ public class UploadRouter {
             ));
             Files.copy(input, new File(Arkitektonika.SCHEMATIC_FOLDER, downloadKey).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
+            logger.info("Persisted file {} (downloadKey: {}, deletionKey: {})", fileName, downloadKey, deletionKey);
             var json = new JsonObject();
             json.addProperty("download_key", downloadKey);
             json.addProperty("delete_key", deletionKey);

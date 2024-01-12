@@ -39,6 +39,7 @@ public class DeleteRouter {
             return "Failed to delete file " + record.fileName();
         }
         response.status(200);
+        logger.info("Delete file {}", record.fileName());
         return "Successfully delete file " + record.fileName();
     }
 
