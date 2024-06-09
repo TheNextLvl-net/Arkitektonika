@@ -33,6 +33,10 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.32")
 }
 
+tasks.shadowJar {
+    archiveFileName.set("arkitektonika.jar")
+}
+
 tasks.jar {
     manifest {
         attributes["Main-Class"] = "net.thenextlvl.arkitektonika.Arkitektonika"
