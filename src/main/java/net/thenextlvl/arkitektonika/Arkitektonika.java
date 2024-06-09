@@ -5,6 +5,7 @@ import core.io.IO;
 import net.thenextlvl.arkitektonika.config.Config;
 import net.thenextlvl.arkitektonika.routes.DeleteRouter;
 import net.thenextlvl.arkitektonika.routes.DownloadRouter;
+import net.thenextlvl.arkitektonika.routes.RenameRouter;
 import net.thenextlvl.arkitektonika.routes.UploadRouter;
 import net.thenextlvl.arkitektonika.storage.DataStorage;
 import net.thenextlvl.arkitektonika.storage.DatabaseStorage;
@@ -41,6 +42,7 @@ public class Arkitektonika {
             registerAccessControl();
             DeleteRouter.register();
             DownloadRouter.register();
+            RenameRouter.register();
             UploadRouter.register();
         }
     }

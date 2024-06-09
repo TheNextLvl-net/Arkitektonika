@@ -106,6 +106,31 @@ success body:
 The download key allows you to download the file, and the delete key lets you delete it. Share the `download_key`, but
 not the `delete_key`.
 
+### Rename a file
+
+**PUT `INSTANCE_URL/rename/:deletion_key/:name`**: rename a file with the given `deletion_key` ; example:
+
+```sh
+curl --location --request PUT 'http://localhost:3000/rename/11561161dffe4a1298992ce063be5ff9/renamed-plot.schem'
+```
+
+response:
+
+| code | meaning                            |
+|------|------------------------------------|
+| 200  | file was successfully renamed      |
+| 404  | file was not found in the database |
+
+success body:
+
+```json
+{
+  "download_key": "db6186c8795740379d26fc61ecba1a24",
+  "delete_key": "11561161dffe4a1298992ce063be5ff9",
+  "expiration_date": 1717940582741
+}
+```
+
 ### Check download headers
 
 **HEAD `INSTANCE_URL/download/:download_key`**: check what headers you'd get if you sent a POST request for a file with

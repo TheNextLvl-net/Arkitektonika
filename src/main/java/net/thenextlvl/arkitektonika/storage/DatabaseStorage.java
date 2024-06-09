@@ -63,6 +63,12 @@ public class DatabaseStorage implements DataStorage {
                 schematic.expirationDate()
         );
     }
+
+    @Override
+    public void renameSchematic(Schematic schematic) throws SQLException {
+        executeUpdate(
+                "UPDATE accounting SET filename = ? WHERE delete_key = ?",
+                schematic.fileName(), schematic.deleteKey()
         );
     }
 
