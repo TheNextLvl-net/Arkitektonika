@@ -6,7 +6,7 @@
 
 ---
 
-The original resource by IntellectualSites can be found [here](https://github.com/IntellectualSites/Arkitektonika) 
+The original resource by IntellectualSites can be found [here](https://github.com/IntellectualSites/Arkitektonika)
 
 Arkitektonika is a REST repository for NBT data. It accepts uploads of valid NBT data and stores them in a local folder
 while accounting for its metadata in a local sqlite database. ~Optionally, uploaded files can be expired based on the

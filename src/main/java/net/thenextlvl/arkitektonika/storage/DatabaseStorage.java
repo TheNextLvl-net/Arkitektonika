@@ -17,10 +17,9 @@ public class DatabaseStorage implements DataStorage {
     public DatabaseStorage() {
         try {
             var url = "jdbc:sqlite:" + new File(Arkitektonika.DATA_FOLDER, "database.db");
-            Class.forName("org.sqlite.JDBC");
             this.connection = DriverManager.getConnection(url);
             migrate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize Database", e);
         }
     }

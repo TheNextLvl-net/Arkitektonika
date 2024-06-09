@@ -40,14 +40,12 @@ public class DownloadRouter {
     }
 
     private static @Nullable Schematic fetchRecord(Request request, Response response) {
-        Schematic record;
         try {
-            record = Arkitektonika.DATA_STORAGE.getSchematicByDownloadKey(request.params(":key"));
+            return Arkitektonika.DATA_STORAGE.getSchematicByDownloadKey(request.params(":key"));
         } catch (Exception e) {
             response.status(404);
             response.body("No record found for deletion key");
             return null;
         }
-        return record;
     }
 }

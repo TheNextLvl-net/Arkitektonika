@@ -44,14 +44,12 @@ public class DeleteRouter {
     }
 
     private static @Nullable Schematic fetchRecord(Request request, Response response) {
-        Schematic record;
         try {
-            record = Arkitektonika.DATA_STORAGE.getSchematicByDeletionKey(request.params(":key"));
+            return Arkitektonika.DATA_STORAGE.getSchematicByDeletionKey(request.params(":key"));
         } catch (Exception e) {
             response.status(404);
             response.body("No record found for deletion key");
             return null;
         }
-        return record;
     }
 }
