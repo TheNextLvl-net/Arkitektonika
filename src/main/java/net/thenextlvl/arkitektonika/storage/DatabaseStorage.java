@@ -8,6 +8,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DatabaseStorage implements DataStorage {
     private static final char[] CHARACTERS = "0123456789abcdef".toCharArray();
@@ -55,20 +56,22 @@ public class DatabaseStorage implements DataStorage {
     @Override
     public void createSchematic(Schematic schematic) throws SQLException {
         executeUpdate(
-                "INSERT INTO accounting (filename, download_key, delete_key, last_accessed) VALUES (?, ?, ?, ?)",
+                "INSERT INTO accounting (filename, download_key, delete_key, expiration_date) VALUES (?, ?, ?, ?)",
                 schematic.fileName(),
                 schematic.downloadKey(),
                 schematic.deleteKey(),
-                schematic.lastAccessed()
+                schematic.expirationDate()
+        );
+    }
         );
     }
 
     @Override
-    public List<Schematic> removeSchematics(long milliseconds) throws SQLException {
+    public List<Schematic> removeSchematics() throws SQLException {
         var schematics = executeQuery(
-                "SELECT * FROM accounting WHERE last_accessed <= ?",
+                "SELECT * FROM accounting WHERE expiration_date <= ?",
                 this::transformRowsToRecords,
-                System.currentTimeMillis() - milliseconds
+                new Date(System.currentTimeMillis())
         );
         for (var schematic : schematics) removeSchematic(schematic);
         return schematics;
@@ -76,12 +79,12 @@ public class DatabaseStorage implements DataStorage {
 
     @Override
     public String generateDeletionKey() throws SQLException {
-        return generateUniqueKey("SELECT last_accessed FROM accounting WHERE delete_key = ? LIMIT 1");
+        return generateUniqueKey("SELECT expiration_date FROM accounting WHERE delete_key = ? LIMIT 1");
     }
 
     @Override
     public String generateDownloadKey() throws SQLException {
-        return generateUniqueKey("SELECT last_accessed FROM accounting WHERE download_key = ? LIMIT 1");
+        return generateUniqueKey("SELECT expiration_date FROM accounting WHERE download_key = ? LIMIT 1");
     }
 
     private String generateUniqueKey(String query) throws SQLException {
@@ -98,16 +101,16 @@ public class DatabaseStorage implements DataStorage {
                     download_key CHAR(32) NOT NULL UNIQUE,
                     delete_key CHAR(32) NOT NULL UNIQUE,
                     filename CHAR(33) NOT NULL,
-                    last_accessed INTEGER NOT NULL
+                    expiration_date INTEGER NOT NULL
                 )""");
     }
 
     private Schematic transformRowToRecord(ResultSet resultSet) throws SQLException {
         return new Schematic(
-                resultSet.getString("download_key"),
-                resultSet.getString("delete_key"),
-                resultSet.getString("filename"),
-                resultSet.getDate("last_accessed")
+                Objects.requireNonNull(resultSet.getString("download_key")),
+                Objects.requireNonNull(resultSet.getString("delete_key")),
+                Objects.requireNonNull(resultSet.getString("filename")),
+                Objects.requireNonNull(resultSet.getDate("expiration_date"))
         );
     }
 

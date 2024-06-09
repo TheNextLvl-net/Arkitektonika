@@ -47,13 +47,19 @@ public interface DataStorage {
     void createSchematic(Schematic schematic) throws SQLException;
 
     /**
-     * Remove all schematics where {@link Schematic#lastAccessed()} is further ago then the given time
+     * Rename a schematic
      *
-     * @param milliseconds The amount of milliseconds to check last_accessed against
+     * @throws SQLException thrown if something goes wrong
+     */
+    void renameSchematic(Schematic schematic) throws SQLException;
+
+    /**
+     * Remove all schematics where {@link Schematic#expirationDate()} has passed
+     *
      * @return a list of schematics that where removed
      * @throws SQLException thrown if something goes wrong
      */
-    List<Schematic> removeSchematics(long milliseconds) throws SQLException;
+    List<Schematic> removeSchematics() throws SQLException;
 
     /**
      * Generate a new unique download key

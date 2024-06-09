@@ -90,7 +90,7 @@ public class Arkitektonika {
     }
 
     private static int outdatedPrune() throws SQLException {
-        var deleted = DATA_STORAGE.removeSchematics(CONFIG.prune());
+        var deleted = DATA_STORAGE.removeSchematics();
         for (var record : deleted) {
             var success = new File(SCHEMATIC_FOLDER, record.downloadKey()).delete();
             if (!success) logger.error("Failed to delete file: {}", record.downloadKey());
