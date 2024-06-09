@@ -6,10 +6,13 @@ COPY --chown=gradle:gradle build.gradle.kts settings.gradle.kts /home/gradle/src
 COPY --chown=gradle:gradle src /home/gradle/src/src
 
 RUN gradle shadowJar
+
 FROM openjdk:21-slim
 
-RUN mkdir /app
 WORKDIR /app
 
-COPY --from=build /home/gradle/src/build/libs/*.jar /app/arkitektonika.jar
+COPY --from=build /home/gradle/src/build/libs/arkitektonika.jar /app/arkitektonika.jar
+
+VOLUME ["/app/data"]
+
 CMD ["java", "-Xmx256M", "-jar", "/app/arkitektonika.jar"]
