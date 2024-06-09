@@ -39,13 +39,16 @@ java -jar $(find build/libs/ -name "*.jar" -print -quit)
   "prune": 1800000,
   "maxSchematicSize": 1000000,
   "allowedOrigin": "*",
-  "limiter": { # not implemented yet
+  "limiter": {
     "windowMs": 60000,
     "delayAfter": 30,
     "delayMs": 500
   }
 }
 ```
+
+> [!WARNING]
+> the `limiter` is not implemented yet
 
 | Config Key         | Description                                                                                                                |
 |--------------------|----------------------------------------------------------------------------------------------------------------------------|
