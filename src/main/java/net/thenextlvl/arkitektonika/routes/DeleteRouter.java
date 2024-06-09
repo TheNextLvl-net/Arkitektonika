@@ -25,6 +25,7 @@ public class DeleteRouter {
             if (fetchRecord(request, response) != null) response.status(200);
             return null;
         });
+        Spark.delete("/delete/:key", DeleteRouter::handleFileDelete);
         Spark.get("/delete/:key", DeleteRouter::handleFileDelete);
     }
 
