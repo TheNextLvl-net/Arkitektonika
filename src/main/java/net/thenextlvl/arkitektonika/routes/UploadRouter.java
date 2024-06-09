@@ -74,9 +74,8 @@ public class UploadRouter {
         try (var input = new ByteArrayInputStream(output.toByteArray())) {
             var downloadKey = Arkitektonika.DATA_STORAGE.generateDownloadKey();
             var deletionKey = Arkitektonika.DATA_STORAGE.generateDeletionKey();
-            Arkitektonika.DATA_STORAGE.createSchematic(new Schematic(
-                    downloadKey, deletionKey, fileName
-            ));
+            var schematic = new Schematic(downloadKey, deletionKey, fileName);
+            Arkitektonika.DATA_STORAGE.createSchematic(schematic);
             Files.copy(input, new File(Arkitektonika.SCHEMATIC_FOLDER, downloadKey).toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
             logger.info("Persisted file {} (downloadKey: {}, deletionKey: {})", fileName, downloadKey, deletionKey);
@@ -84,6 +83,7 @@ public class UploadRouter {
             var json = new JsonObject();
             json.addProperty("download_key", downloadKey);
             json.addProperty("delete_key", deletionKey);
+            json.addProperty("expiration_date", schematic.expirationDate().getTime());
             return json.toString();
         }
     }

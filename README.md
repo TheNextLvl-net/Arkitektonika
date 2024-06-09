@@ -98,7 +98,8 @@ success body:
 ```json
 {
   "download_key": "db6186c8795740379d26fc61ecba1a24",
-  "delete_key": "11561161dffe4a1298992ce063be5ff9"
+  "delete_key": "11561161dffe4a1298992ce063be5ff9",
+  "expiration_date": 1717940582741
 }
 ```
 
