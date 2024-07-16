@@ -28,7 +28,7 @@ dependencies {
     implementation("net.thenextlvl.core:annotations:2.0.1")
     implementation("net.thenextlvl.core:files:1.0.4")
     implementation("net.thenextlvl.core:utils:1.0.9")
-    implementation("net.thenextlvl.core:nbt:1.4.1")
+    implementation("net.thenextlvl.core:nbt:1.4.2")
 
     annotationProcessor("org.projectlombok:lombok:1.18.32")
 }
