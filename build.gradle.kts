@@ -20,7 +20,7 @@ dependencies {
     compileOnly("org.jetbrains:annotations:24.1.0")
     compileOnly("org.projectlombok:lombok:1.18.34")
 
-    implementation("org.xerial:sqlite-jdbc:3.46.0.0")
+    implementation("org.xerial:sqlite-jdbc:3.46.0.1")
     implementation("com.sparkjava:spark-core:2.9.4")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("ch.qos.logback:logback-classic:1.5.6")
