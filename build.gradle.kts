@@ -23,7 +23,7 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.46.0.1")
     implementation("com.sparkjava:spark-core:2.9.4")
     implementation("com.google.code.gson:gson:2.11.0")
-    implementation("ch.qos.logback:logback-classic:1.5.6")
+    implementation("ch.qos.logback:logback-classic:1.5.7")
 
     implementation("net.thenextlvl.core:annotations:2.0.1")
     implementation("net.thenextlvl.core:files:1.0.5")
