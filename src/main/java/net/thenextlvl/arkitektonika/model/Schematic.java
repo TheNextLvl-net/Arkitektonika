@@ -1,27 +1,20 @@
 package net.thenextlvl.arkitektonika.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.thenextlvl.arkitektonika.Arkitektonika;
 
 import java.sql.Date;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
-@RequiredArgsConstructor
-@Accessors(fluent = true)
+@Accessors(fluent = true, chain = false)
 public class Schematic {
-    private final String downloadKey;
     private final String deleteKey;
-    private String fileName;
+    private final String downloadKey;
+    private final byte[] data;
     private Date expirationDate;
-
-    public Schematic(String downloadKey, String deleteKey, String fileName) {
-        this(downloadKey, deleteKey, fileName, new Date(
-                System.currentTimeMillis() + Arkitektonika.CONFIG.prune()
-        ));
-    }
+    private String name;
 }
