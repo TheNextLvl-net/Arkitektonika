@@ -64,15 +64,12 @@ java -jar $(find build/libs/ -name "*.jar" -print -quit)
 ```
 data
 ├── config.json
-├── database.db
-└── schemataics
-    ├── fe65d7edc37149c47171962dc26a039b
-    └── a98f299c5cf294e6555617e83226bcdd
+└── database.db
 ```
 
 `config.json` holds the user configuration data <br>
 `database.db` holds the required data for each schematic <br>
-`schematics`  holds all schematic file data
+~~`schematics`  holds all schematic file data~~
 
 ### Routes
 
@@ -113,12 +110,12 @@ curl --location --request POST 'http://localhost:3000/upload' \
 
 response:
 
-| code | meaning                                                              |
-|------|----------------------------------------------------------------------|
-| 200  | file was of valid NBT format and was accepted                        |
-| 400  | file was not of valid NBT format                                     |
-| 413  | file payload was too large and rejected                              |
-| 500  | file could not be found on disk after being uploaded (upload failed) |
+| code | meaning                                       |
+|------|-----------------------------------------------|
+| 200  | file was of valid NBT format and was accepted |
+| 400  | file was not of valid NBT format              |
+| 413  | file payload was too large and rejected       |
+| 500  | upload failed                                 |
 
 success body:
 
@@ -148,23 +145,12 @@ response:
 | 200  | file was successfully renamed      |
 | 404  | file was not found in the database |
 
-success body:
+### Download a file
 
-```json
-{
-  "download_key": "db6186c8795740379d26fc61ecba1a24",
-  "delete_key": "11561161dffe4a1298992ce063be5ff9",
-  "expiration_date": 1717940582741
-}
-```
-
-### Check download headers
-
-**HEAD `INSTANCE_URL/download/:download_key`**: check what headers you'd get if you sent a POST request for a file with
-the given download_key; example:
+**GET `INSTANCE_URL/download/:download_key`**: download a file with the given `download_key`; example:
 
 ```sh
-curl --location --head 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
+curl --location --request GET 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
 ```
 
 The response for this is in the form of status codes only.
@@ -176,26 +162,14 @@ The response for this is in the form of status codes only.
 | 410         | File metadata is in accounting table, but file is not on disk or already expired       |
 | 500         | An internal server error occurred due to corrupted metadata (missing data in database) |
 
-### Download a file
-
-**GET `INSTANCE_URL/download/:download_key`**: download a file with the given `download_key`; example:
-
-```sh
-curl --location --request GET 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
-```
-
-response:
-see **Check download headers** above.
-
 On success, the file is sent as an attachment for download to the browser / requester.
 
-### Check deletion headers
+### Delete a file
 
-**HEAD `INSTANCE_URL/delete/:delete_key`**: check what headers you'd get if you sent a DELETE request for a file with
-the given delete_key; example:
+**DELETE `PUBLIC_URL/delete/:delete_key`**: delete a file with the given `delete_key`; example:
 
 ```sh
-curl --location --head 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
+curl --location --request DELETE 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
 ```
 
 The response for this is in the form of status codes only.
@@ -206,16 +180,5 @@ The response for this is in the form of status codes only.
 | 404         | File was not found in the database                                                     |
 | 410         | File metadata is in accounting table, but file is not on disk or already expired       |
 | 500         | An internal server error occurred due to corrupted metadata (missing data in database) |
-
-### Delete a file
-
-**DELETE `PUBLIC_URL/delete/:delete_key`**: delete a file with the given `delete_key`; example:
-
-```sh
-curl --location --request DELETE 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
-```
-
-response:
-see **Check deletion headers** above.
 
 On success, the file is deleted and the record is marked as expired in the database. 
