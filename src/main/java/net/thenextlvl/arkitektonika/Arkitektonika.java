@@ -3,7 +3,7 @@ package net.thenextlvl.arkitektonika;
 import core.file.format.GsonFile;
 import core.io.IO;
 import io.javalin.Javalin;
-import io.javalin.config.SizeUnit;
+import jakarta.servlet.MultipartConfigElement;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
@@ -33,12 +33,14 @@ public class Arkitektonika {
     private final DataController dataController;
     private final SchematicController schematicController = new SchematicController(this);
 
-    private final Javalin javalin = Javalin.create(config -> {
-        config.jetty.multipartConfig.maxFileSize(100, SizeUnit.MB);
-        config.jetty.multipartConfig.maxInMemoryFileSize(10, SizeUnit.MB);
-        config.jetty.multipartConfig.maxTotalRequestSize(1, SizeUnit.GB);
-        config.showJavalinBanner = false;
-    });
+    private final MultipartConfigElement multipartConfig = new MultipartConfigElement(
+            System.getProperty("java.io.tmpdir"),
+            config().maxSchematicSize() * 1024, // in KB
+            1024 * 1024 * 1024, // 1GB
+            10 * 1024 * 1024 // 10MB
+    );
+
+    private final Javalin javalin = Javalin.create(config -> config.showJavalinBanner = false);
 
     public static void main(String[] args) {
         new Arkitektonika().start();
