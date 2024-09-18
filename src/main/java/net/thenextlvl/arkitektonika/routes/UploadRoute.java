@@ -29,6 +29,7 @@ public class UploadRoute {
         context.future(() -> CompletableFuture.runAsync(() -> {
             try {
                 var request = context.req();
+                request.setAttribute("org.eclipse.jetty.multipartConfig", arkitektonika.multipartConfig());
                 var part = request.getPart("schematic");
                 var maxSize = arkitektonika.config().maxSchematicSize();
                 if (part.getSize() > maxSize) {
