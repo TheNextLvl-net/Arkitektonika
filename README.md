@@ -83,6 +83,12 @@ All routes will be available at the exposed port (e.g. `localhost:3000`).
 curl --location --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a24'
 ```
 
+| Code | Meaning                            |
+|------|------------------------------------|
+| 200  | Success                            |
+| 404  | File was not found in the database |
+| 500  | A server error occurred            |
+
 ### Get file expiration
 
 **GET `INSTANCE_URL/expiration/:download_key`**: get the file expiration date
@@ -91,6 +97,12 @@ curl --location --request GET 'http://localhost:3000/base64/db6186c8795740379d26
 curl --location --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
 ```
 
+| Code | Meaning                            |
+|------|------------------------------------|
+| 200  | Success                            |
+| 404  | File was not found in the database |
+| 500  | A server error occurred            |
+
 ### Set file expiration
 
 **PUT `INSTANCE_URL/expiration/:download_key/:expiration`**: set the file expiration date
@@ -98,6 +110,12 @@ curl --location --request GET 'http://localhost:3000/expiration/db6186c879574037
 ```sh
 curl --location --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24/2717940582741'
 ```
+
+| Code | Meaning                            |
+|------|------------------------------------|
+| 200  | Expiration updated                 |
+| 404  | File was not found in the database |
+| 500  | A server error occurred            |
 
 ### Upload a file
 
@@ -110,12 +128,12 @@ curl --location --request POST 'http://localhost:3000/upload' \
 
 response:
 
-| code | meaning                                       |
+| Code | Meaning                                       |
 |------|-----------------------------------------------|
-| 200  | file was of valid NBT format and was accepted |
-| 400  | file was not of valid NBT format              |
-| 413  | file payload was too large and rejected       |
-| 500  | upload failed                                 |
+| 200  | File was of valid NBT format and was accepted |
+| 400  | File was not of valid NBT format              |
+| 413  | File payload was too large and rejected       |
+| 500  | Upload failed                                 |
 
 success body:
 
@@ -140,10 +158,10 @@ curl --location --request PUT 'http://localhost:3000/rename/11561161dffe4a129899
 
 response:
 
-| code | meaning                            |
+| Code | Meaning                            |
 |------|------------------------------------|
-| 200  | file was successfully renamed      |
-| 404  | file was not found in the database |
+| 200  | File was successfully renamed      |
+| 404  | File was not found in the database |
 
 ### Download a file
 
@@ -155,12 +173,12 @@ curl --location --request GET 'http://localhost:3000/download/db6186c8795740379d
 
 The response for this is in the form of status codes only.
 
-| Status-Code | Meaning                                                                                |
-|-------------|----------------------------------------------------------------------------------------|
-| 200         | File was found, prospective download would succeed                                     |
-| 404         | File was not found in the database                                                     |
-| 410         | File metadata is in accounting table, but file is not on disk or already expired       |
-| 500         | An internal server error occurred due to corrupted metadata (missing data in database) |
+| Code | Meaning                                                                                |
+|------|----------------------------------------------------------------------------------------|
+| 200  | File was found, prospective download would succeed                                     |
+| 404  | File was not found in the database                                                     |
+| 410  | File metadata is in accounting table, but file is not on disk or already expired       |
+| 500  | An internal server error occurred due to corrupted metadata (missing data in database) |
 
 On success, the file is sent as an attachment for download to the browser / requester.
 
@@ -174,11 +192,11 @@ curl --location --request DELETE 'http://localhost:3000/delete/11561161dffe4a129
 
 The response for this is in the form of status codes only.
 
-| Status-Code | Meaning                                                                                |
-|-------------|----------------------------------------------------------------------------------------|
-| 200         | File was found, prospective deletion would succeed                                     |
-| 404         | File was not found in the database                                                     |
-| 410         | File metadata is in accounting table, but file is not on disk or already expired       |
-| 500         | An internal server error occurred due to corrupted metadata (missing data in database) |
+| Code | Meaning                                                                                |
+|------|----------------------------------------------------------------------------------------|
+| 200  | File was found, prospective deletion would succeed                                     |
+| 404  | File was not found in the database                                                     |
+| 410  | File metadata is in accounting table, but file is not on disk or already expired       |
+| 500  | An internal server error occurred due to corrupted metadata (missing data in database) |
 
 On success, the file is deleted and the record is marked as expired in the database. 
