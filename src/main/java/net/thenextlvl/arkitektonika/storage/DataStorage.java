@@ -54,6 +54,14 @@ public interface DataStorage {
     void renameSchematic(Schematic schematic) throws SQLException;
 
     /**
+     * Updates the expiration date of the given schematic.
+     *
+     * @param schematic the schematic whose expiration date is to be updated
+     * @throws SQLException if a database access error occurs
+     */
+    void updateExpiration(Schematic schematic) throws SQLException;
+
+    /**
      * Remove all schematics where {@link Schematic#expirationDate()} has passed
      *
      * @return a list of schematics that where removed

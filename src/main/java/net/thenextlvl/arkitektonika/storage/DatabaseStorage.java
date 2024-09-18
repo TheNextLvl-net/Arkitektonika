@@ -72,6 +72,14 @@ public class DatabaseStorage implements DataStorage {
     }
 
     @Override
+    public void updateExpiration(Schematic schematic) throws SQLException {
+        executeUpdate(
+                "UPDATE accounting SET expiration_date = ? WHERE delete_key = ?",
+                schematic.expirationDate(), schematic.deleteKey()
+        );
+    }
+
+    @Override
     public List<Schematic> removeSchematics() throws SQLException {
         var schematics = executeQuery(
                 "SELECT * FROM accounting WHERE expiration_date <= ?",
