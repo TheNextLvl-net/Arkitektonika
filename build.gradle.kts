@@ -21,7 +21,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.34")
 
     implementation("org.xerial:sqlite-jdbc:3.46.1.0")
-    implementation("com.sparkjava:spark-core:2.9.4")
+    implementation("io.javalin:javalin:6.3.0")
+
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("ch.qos.logback:logback-classic:1.5.8")
 
