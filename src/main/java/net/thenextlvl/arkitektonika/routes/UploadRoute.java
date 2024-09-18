@@ -58,6 +58,10 @@ public class UploadRoute {
                 context.result(e.getMessage());
                 context.status(500);
             }
+        }).exceptionally(throwable -> {
+            context.result(throwable.getMessage());
+            context.status(500);
+            return null;
         }));
     }
 
