@@ -26,7 +26,6 @@ public class RenameRouter {
     private static @Nullable Object handleFileRename(Request request, Response response) throws SQLException {
         var record = fetchRecord(request, response);
         if (record == null) return null;
-        System.out.println(record);
         record.fileName(request.params(":name"));
         Arkitektonika.DATA_STORAGE.renameSchematic(record);
         response.status(200);
