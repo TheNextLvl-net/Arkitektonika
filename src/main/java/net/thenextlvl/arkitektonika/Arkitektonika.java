@@ -63,7 +63,7 @@ public class Arkitektonika {
         logger.info("Starting pruning expired schematics...");
         schematicController.prune().thenAccept(amount -> {
             var time = (System.currentTimeMillis() - start) / 1000d;
-            logger.info("Pruned {} schematics. Took {}s", amount, time);
+            logger.info("Pruned {} schematics in {}s", amount, time);
         }).exceptionally(throwable -> {
             logger.error("Failed to prune schematics", throwable);
             return null;
