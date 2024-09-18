@@ -55,7 +55,7 @@ public class Arkitektonika {
 
     private void start() {
         try (var executor = Executors.newSingleThreadScheduledExecutor()) {
-            executor.scheduleAtFixedRate(this::prune, 0, config.prune(), TimeUnit.MILLISECONDS);
+            executor.scheduleAtFixedRate(this::prune, 0, 1, TimeUnit.MINUTES);
             javalin.start(Integer.getInteger("port", config.port()));
         }
     }
