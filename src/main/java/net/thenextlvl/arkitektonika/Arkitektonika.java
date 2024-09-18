@@ -3,10 +3,7 @@ package net.thenextlvl.arkitektonika;
 import core.file.format.GsonFile;
 import core.io.IO;
 import net.thenextlvl.arkitektonika.config.Config;
-import net.thenextlvl.arkitektonika.routes.DeleteRouter;
-import net.thenextlvl.arkitektonika.routes.DownloadRouter;
-import net.thenextlvl.arkitektonika.routes.RenameRouter;
-import net.thenextlvl.arkitektonika.routes.UploadRouter;
+import net.thenextlvl.arkitektonika.routes.*;
 import net.thenextlvl.arkitektonika.storage.DataStorage;
 import net.thenextlvl.arkitektonika.storage.DatabaseStorage;
 import org.slf4j.Logger;
@@ -40,8 +37,10 @@ public class Arkitektonika {
             executorService.scheduleAtFixedRate(Arkitektonika::prune, 0, CONFIG.prune(), TimeUnit.MILLISECONDS);
             Spark.port(CONFIG.port());
             registerAccessControl();
+            Base64Router.register();
             DeleteRouter.register();
             DownloadRouter.register();
+            ExpirationRouter.register();
             RenameRouter.register();
             UploadRouter.register();
         }
