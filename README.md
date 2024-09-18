@@ -78,6 +78,30 @@ data
 
 All routes will be available at the exposed port (e.g. `localhost:3000`).
 
+### Get files as base64
+
+**GET `INSTANCE_URL/base64/:download_key`**: get the file bytes as base64 encoded string
+
+```sh
+curl --location --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a24'
+```
+
+### Get file expiration
+
+**GET `INSTANCE_URL/expiration/:download_key`**: get the file expiration date
+
+```sh
+curl --location --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
+```
+
+### Set file expiration
+
+**PUT `INSTANCE_URL/expiration/:download_key/:expiration`**: set the file expiration date
+
+```sh
+curl --location --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24/2717940582741'
+```
+
 ### Upload a file
 
 **POST `INSTANCE_URL/upload`**: send your file as multipart/form-data; example:
