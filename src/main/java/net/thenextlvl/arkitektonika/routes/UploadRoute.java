@@ -26,7 +26,7 @@ public class UploadRoute {
     }
 
     private void upload(Context context) {
-        context.future(() -> CompletableFuture.runAsync(() -> {
+        context.future(() -> CompletableFuture.supplyAsync(() -> {
             try {
                 var request = context.req();
                 request.setAttribute("org.eclipse.jetty.multipartConfig", arkitektonika.multipartConfig());
@@ -35,30 +35,29 @@ public class UploadRoute {
                 if (part.getSize() > maxSize) {
                     context.result("File exceeds max size of " + maxSize + " bytes");
                     context.status(413);
+                    return null;
                 } else try (var nbt = new NBTInputStream(part.getInputStream())) {
                     nbt.readNamedTag();
-                    persist(part).thenAccept(schematic -> {
-                        var json = new JsonObject();
-                        json.addProperty("download_key", schematic.downloadKey());
-                        json.addProperty("delete_key", schematic.deleteKey());
-                        json.addProperty("expiration_date", schematic.expirationDate().getTime());
-                        context.header("Content-Type", "application/json");
-                        context.result(json.toString());
-                        context.status(200);
-                    }).exceptionally(throwable -> {
-                        context.result(throwable.getMessage());
-                        context.status(500);
-                        return null;
-                    });
+                    return part;
                 } catch (IOException e) {
                     context.result(e.getMessage());
                     context.status(400);
+                    return null;
                 }
             } catch (ServletException | IOException e) {
                 context.result(e.getMessage());
                 context.status(500);
+                return null;
             }
-        }).exceptionally(throwable -> {
+        }).thenCompose(part -> persist(part).thenAccept(schematic -> {
+            var json = new JsonObject();
+            json.addProperty("download_key", schematic.downloadKey());
+            json.addProperty("delete_key", schematic.deleteKey());
+            json.addProperty("expiration_date", schematic.expirationDate().getTime());
+            context.header("Content-Type", "application/json");
+            context.result(json.toString());
+            context.status(200);
+        })).exceptionally(throwable -> {
             context.result(throwable.getMessage());
             context.status(500);
             return null;
