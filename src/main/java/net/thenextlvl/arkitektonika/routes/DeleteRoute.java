@@ -20,9 +20,9 @@ public class DeleteRoute {
     private void delete(Context context) {
         context.future(() -> arkitektonika.schematicController()
                 .delete(context.pathParam("key"))
-                .thenAccept(unused -> {
-                    context.result("File was deleted");
-                    context.status(200);
+                .thenAccept(success -> {
+                    context.result(success ? "File was deleted" : "File not found");
+                    context.status(success ? 200 : 404);
                 }).exceptionally(throwable -> {
                     context.result(throwable.getMessage());
                     context.status(500);
