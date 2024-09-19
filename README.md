@@ -1,9 +1,6 @@
-# Arkitektonika
+# Arkitektnika
 
-<p>
-    <img src="https://raw.githubusercontent.com/IntellectualSites/Assets/main/standalone/Arkitektonika/Arkitektonika.png" width="150">
-</p>
-
+https://raw.githubusercontent.com/IntellectualSites/Assets/main/standalone/Arkitektonika/Arkitektonika.png
 ---
 
 The original resource by IntellectualSites can be found [here](https://github.com/IntellectualSites/Arkitektonika)
