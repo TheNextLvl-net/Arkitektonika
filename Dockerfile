@@ -13,6 +13,4 @@ WORKDIR /app
 
 COPY --from=build /home/gradle/src/build/libs/arkitektonika.jar /app/arkitektonika.jar
 
-VOLUME ["/app/data"]
-
 CMD ["java", "-Xmx256M", "-jar", "/app/arkitektonika.jar"]
