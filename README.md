@@ -122,8 +122,7 @@ curl --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecb
 **POST `INSTANCE_URL/upload`**: send your file as multipart/form-data; example:
 
 ```sh
-curl --request POST 'http://localhost:3000/upload' \
---form 'schematic=@/path/to/plot.schem'
+curl --request POST 'http://localhost:3000/upload' --form 'schematic=@/path/to/plot.schem'
 ```
 
 response:
