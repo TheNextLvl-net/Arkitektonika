@@ -1,9 +1,9 @@
 FROM gradle:jdk21-alpine AS build
 
-WORKDIR /home/gradle/src
+WORKDIR /gradle
 
-COPY --chown=gradle:gradle build.gradle.kts settings.gradle.kts /home/gradle/src/
-COPY --chown=gradle:gradle src /home/gradle/src/src
+COPY --chown=gradle:gradle build.gradle.kts settings.gradle.kts /gradle/
+COPY --chown=gradle:gradle src /gradle/src
 
 RUN gradle shadowJar
 
@@ -11,6 +11,6 @@ FROM openjdk:21-slim
 
 WORKDIR /app
 
-COPY --from=build /home/gradle/src/build/libs/arkitektonika.jar /app/arkitektonika.jar
+COPY --from=build /gradle/build/libs/arkitektonika.jar /app/arkitektonika.jar
 
 CMD ["java", "-Xmx256M", "-jar", "/app/arkitektonika.jar"]
