@@ -80,7 +80,7 @@ All routes will be available at the exposed port (e.g. `localhost:3000`).
 **GET `INSTANCE_URL/base64/:download_key`**: get the file bytes as base64 encoded string
 
 ```sh
-curl --location --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a24'
+curl --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a24'
 ```
 
 | Code | Meaning                            |
@@ -94,7 +94,7 @@ curl --location --request GET 'http://localhost:3000/base64/db6186c8795740379d26
 **GET `INSTANCE_URL/expiration/:download_key`**: get the file expiration date
 
 ```sh
-curl --location --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
+curl --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
 ```
 
 | Code | Meaning                            |
@@ -108,7 +108,7 @@ curl --location --request GET 'http://localhost:3000/expiration/db6186c879574037
 **PUT `INSTANCE_URL/expiration/:download_key/:expiration`**: set the file expiration date
 
 ```sh
-curl --location --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24/2717940582741'
+curl --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24/2717940582741'
 ```
 
 | Code | Meaning                            |
@@ -122,7 +122,7 @@ curl --location --request PUT 'http://localhost:3000/expiration/db6186c879574037
 **POST `INSTANCE_URL/upload`**: send your file as multipart/form-data; example:
 
 ```sh
-curl --location --request POST 'http://localhost:3000/upload' \
+curl --request POST 'http://localhost:3000/upload' \
 --form 'schematic=@/path/to/plot.schem'
 ```
 
@@ -153,7 +153,7 @@ not the `delete_key`.
 **PUT `INSTANCE_URL/rename/:deletion_key/:name`**: rename a file with the given `deletion_key` ; example:
 
 ```sh
-curl --location --request PUT 'http://localhost:3000/rename/11561161dffe4a1298992ce063be5ff9/renamed-plot.schem'
+curl --request PUT 'http://localhost:3000/rename/11561161dffe4a1298992ce063be5ff9/renamed-plot.schem'
 ```
 
 response:
@@ -168,7 +168,7 @@ response:
 **GET `INSTANCE_URL/download/:download_key`**: download a file with the given `download_key`; example:
 
 ```sh
-curl --location --request GET 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
+curl --request GET 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
 ```
 
 The response for this is in the form of status codes only.
@@ -187,7 +187,7 @@ On success, the file is sent as an attachment for download to the browser / requ
 **DELETE `PUBLIC_URL/delete/:delete_key`**: delete a file with the given `delete_key`; example:
 
 ```sh
-curl --location --request DELETE 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
+curl --request DELETE 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
 ```
 
 The response for this is in the form of status codes only.
