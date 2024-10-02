@@ -40,7 +40,6 @@ dependencies {
 
 tasks.shadowJar {
     archiveFileName.set("arkitektonika.jar")
-    minimize()
 }
 
 tasks.jar {
