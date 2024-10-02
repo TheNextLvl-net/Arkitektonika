@@ -23,7 +23,7 @@ public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
 
     @Override
     public SemanticVersion parseVersion(String version) {
-        return SemanticVersion.parse(version);
+        return SemanticVersion.parse(version.startsWith("v") ? version.substring(1) : version);
     }
 
     @Override
