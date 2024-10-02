@@ -81,6 +81,7 @@ public class Arkitektonika {
         new DownloadRoute(this).register();
         new ExpirationRoute(this).register();
         new RenameRoute(this).register();
+        new SizeRoute(this).register();
         new UploadRoute(this).register();
     }
 
