@@ -7,13 +7,15 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 @Getter
 public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     private static final Logger logger = LoggerFactory.getLogger(VersionChecker.class);
 
-    private final SemanticVersion versionRunning = parseVersion(
-            getClass().getPackage().getImplementationVersion()
-    );
+    private final SemanticVersion versionRunning = parseVersion(Objects.requireNonNullElse(
+            getClass().getPackage().getImplementationVersion(), "0.0.0"
+    ));
 
     public VersionChecker() {
         super("TheNextLvl-net", "Arkitektonika");
