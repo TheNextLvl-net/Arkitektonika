@@ -105,10 +105,10 @@ curl --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecb
 
 ### Set file expiration
 
-**PUT `INSTANCE_URL/expiration/:download_key/:expiration`**: set the file expiration date
+**PUT `INSTANCE_URL/expiration/:delete_key/:expiration`**: set the file expiration date
 
 ```sh
-curl --request PUT 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24/2717940582741'
+curl --request PUT 'http://localhost:3000/expiration/11561161dffe4a1298992ce063be5ff9/2717940582741'
 ```
 
 | Code | Meaning                            |
