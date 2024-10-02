@@ -32,7 +32,9 @@ public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     }
 
     public void checkVersion() {
-        retrieveLatestSupportedVersion().thenAccept(version -> {
+        if (versionRunning.toString().equals("0.0.0")) {
+            logger.info("You are running a development version of Arkitektonika");
+        } else retrieveLatestSupportedVersion().thenAccept(version -> {
             if (version.equals(versionRunning)) {
                 logger.info("You are running the latest version of Arkitektonika");
             } else if (version.compareTo(versionRunning) > 0) {
