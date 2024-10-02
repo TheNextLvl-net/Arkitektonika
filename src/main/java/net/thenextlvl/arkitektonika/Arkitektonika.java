@@ -12,6 +12,7 @@ import net.thenextlvl.arkitektonika.routes.*;
 import net.thenextlvl.arkitektonika.storage.DataController;
 import net.thenextlvl.arkitektonika.storage.SQLiteController;
 import net.thenextlvl.arkitektonika.storage.SchematicController;
+import net.thenextlvl.arkitektonika.version.VersionChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ public class Arkitektonika {
 
     private final DataController dataController;
     private final SchematicController schematicController = new SchematicController(this);
+    private final VersionChecker versionChecker = new VersionChecker();
 
     private final MultipartConfigElement multipartConfig = new MultipartConfigElement(
             System.getProperty("java.io.tmpdir"),
@@ -49,6 +51,7 @@ public class Arkitektonika {
     @SneakyThrows
     private Arkitektonika() {
         this.dataController = new SQLiteController(dataFolder);
+        versionChecker().checkVersion();
         setupAccessControl();
         registerRoutes();
     }
