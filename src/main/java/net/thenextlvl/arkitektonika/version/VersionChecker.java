@@ -16,7 +16,7 @@ public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     );
 
     public VersionChecker() {
-        super("TheNextLvl", "Arkitektonika");
+        super("TheNextLvl-net", "Arkitektonika");
     }
 
     @Override
