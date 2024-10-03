@@ -20,6 +20,7 @@ public class RenameRoute {
         arkitektonika.schematicController()
                 .getByDeletionKey(context.pathParam("key"))
                 .thenAccept(optional -> optional.ifPresentOrElse(schematic -> {
+                    schematic.name(context.pathParam("name"));
                     arkitektonika.dataController().renameSchematic(schematic);
                     context.result("File was renamed");
                     context.status(200);
