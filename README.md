@@ -97,7 +97,7 @@ response body: `base64 string`
 **GET `INSTANCE_URL/size/{download_key}`**: get the file size
 
 ```sh
-curl --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
+curl --request GET 'http://localhost:3000/size/db6186c8795740379d26fc61ecba1a24'
 ```
 response:
 
