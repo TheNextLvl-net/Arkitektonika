@@ -77,11 +77,12 @@ All routes will be available at the exposed port (e.g. `localhost:3000`).
 
 ### Get files as base64
 
-**GET `INSTANCE_URL/base64/:download_key`**: get the file bytes as base64 encoded string
+**GET `INSTANCE_URL/base64/{download_key}`**: get the file bytes as base64 encoded string
 
 ```sh
 curl --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a24'
 ```
+response:
 
 | Code | Meaning                            |
 |------|------------------------------------|
@@ -89,27 +90,52 @@ curl --request GET 'http://localhost:3000/base64/db6186c8795740379d26fc61ecba1a2
 | 404  | File was not found in the database |
 | 500  | A server error occurred            |
 
+response body: `base64 string`
+
+### Get file size
+
+**GET `INSTANCE_URL/size/{download_key}`**: get the file size
+
+```sh
+curl --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
+```
+response:
+
+| Code | Meaning                            |
+|------|------------------------------------|
+| 200  | Success                            |
+| 404  | File was not found in the database |
+| 500  | A server error occurred            |
+
+success body: `43554` (in bytes)
+
 ### Get file expiration
 
-**GET `INSTANCE_URL/expiration/:download_key`**: get the file expiration date
+**GET `INSTANCE_URL/expiration/{download_key}`**: get the file expiration date
 
 ```sh
 curl --request GET 'http://localhost:3000/expiration/db6186c8795740379d26fc61ecba1a24'
 ```
 
+response:
+
 | Code | Meaning                            |
 |------|------------------------------------|
 | 200  | Success                            |
 | 404  | File was not found in the database |
 | 500  | A server error occurred            |
 
+success body: `2717940582741` (in millis)
+
 ### Set file expiration
 
-**PUT `INSTANCE_URL/expiration/:delete_key/:expiration`**: set the file expiration date
+**PUT `INSTANCE_URL/expiration/{delete_key}/{expiration}`**: set the file expiration date
 
 ```sh
 curl --request PUT 'http://localhost:3000/expiration/11561161dffe4a1298992ce063be5ff9/2717940582741'
 ```
+
+response:
 
 | Code | Meaning                            |
 |------|------------------------------------|
@@ -149,7 +175,7 @@ not the `delete_key`.
 
 ### Rename a file
 
-**PUT `INSTANCE_URL/rename/:deletion_key/:name`**: rename a file with the given `deletion_key` ; example:
+**PUT `INSTANCE_URL/rename/{deletion_key}/{name}`**: rename a file with the given `deletion_key` ; example:
 
 ```sh
 curl --request PUT 'http://localhost:3000/rename/11561161dffe4a1298992ce063be5ff9/renamed-plot.schem'
@@ -164,7 +190,7 @@ response:
 
 ### Download a file
 
-**GET `INSTANCE_URL/download/:download_key`**: download a file with the given `download_key`; example:
+**GET `INSTANCE_URL/download/{download_key}`**: download a file with the given `download_key`; example:
 
 ```sh
 curl --request GET 'http://localhost:3000/download/db6186c8795740379d26fc61ecba1a24'
@@ -183,7 +209,7 @@ On success, the file is sent as an attachment for download to the browser / requ
 
 ### Delete a file
 
-**DELETE `PUBLIC_URL/delete/:delete_key`**: delete a file with the given `delete_key`; example:
+**DELETE `PUBLIC_URL/delete/{delete_key}`**: delete a file with the given `delete_key`; example:
 
 ```sh
 curl --request DELETE 'http://localhost:3000/delete/11561161dffe4a1298992ce063be5ff9'
