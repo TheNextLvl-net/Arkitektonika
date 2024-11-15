@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains:annotations:26.0.1")
-    compileOnly("org.projectlombok:lombok:1.18.34")
+    compileOnly("org.projectlombok:lombok:1.18.36")
 
     implementation("org.xerial:sqlite-jdbc:3.47.0.0")
     implementation("io.javalin:javalin:6.3.0")
@@ -35,7 +35,7 @@ dependencies {
     implementation("net.thenextlvl.core:utils:1.0.10")
     implementation("net.thenextlvl.core:nbt:2.2.14")
 
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
 }
 
 tasks.shadowJar {
