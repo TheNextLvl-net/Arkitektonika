@@ -29,9 +29,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("ch.qos.logback:logback-classic:1.5.15")
 
-    implementation("net.thenextlvl.core:version-checker:1.2.3")
+    implementation("net.thenextlvl.core:version-checker:2.0.1")
     implementation("net.thenextlvl.core:annotations:2.0.1")
-    implementation("net.thenextlvl.core:files:2.0.0")
+    implementation("net.thenextlvl.core:files:2.0.1")
     implementation("net.thenextlvl.core:utils:1.0.10")
     implementation("net.thenextlvl.core:nbt:2.2.14")
 

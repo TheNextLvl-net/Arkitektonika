@@ -32,19 +32,22 @@ public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     }
 
     public void checkVersion() {
-        if (versionRunning.toString().equals("0.0.0")) {
+        if (versionRunning.toString().equals("0.0.0"))
             logger.info("You are running a development version of Arkitektonika");
-        } else retrieveLatestSupportedVersion().thenAccept(version -> {
-            if (version.equals(versionRunning)) {
-                logger.info("You are running the latest version of Arkitektonika");
-            } else if (version.compareTo(versionRunning) > 0) {
-                logger.warn("An update for Arkitektonika is available");
-                logger.warn("You are running version {}, the latest supported version is {}", versionRunning, version);
-                logger.warn("Update at https://github.com/{}/{}", getOwner(), getRepository());
-            } else logger.warn("You are running a snapshot version of Arkitektonika");
-        }).exceptionally(throwable -> {
-            logger.error("Version check failed", throwable);
+        else retrieveLatestVersion().thenAccept(this::printVersionInfo).exceptionally(throwable -> {
+            logger.warn("There are no public releases for this plugin yet");
             return null;
         });
+    }
+
+    private void printVersionInfo(SemanticVersion version) {
+        if (version.equals(versionRunning)) {
+            logger.info("You are running the latest version of Arkitektonika");
+        } else if (version.compareTo(versionRunning) > 0) {
+            logger.warn("An update for Arkitektonika is available");
+            logger.warn("You are running version {}, the latest version is {}", versionRunning, version);
+            logger.warn("Update at https://github.com/{}/{}", getOwner(), getRepository());
+            logger.warn("Do not test in production and always make backups before updating");
+        } else logger.warn("You are running a snapshot version of Arkitektonika");
     }
 }
