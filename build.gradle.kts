@@ -23,7 +23,7 @@ dependencies {
     compileOnly("org.jetbrains:annotations:26.0.1")
     compileOnly("org.projectlombok:lombok:1.18.36")
 
-    implementation("org.xerial:sqlite-jdbc:3.48.0.0")
+    implementation("org.xerial:sqlite-jdbc:3.49.0.0")
     implementation("io.javalin:javalin:6.4.0")
 
     implementation("com.google.code.gson:gson:2.12.1")
