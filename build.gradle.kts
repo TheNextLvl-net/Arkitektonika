@@ -31,7 +31,7 @@ dependencies {
 
     implementation("net.thenextlvl.core:version-checker:2.0.1")
     implementation("net.thenextlvl.core:annotations:2.0.1")
-    implementation("net.thenextlvl.core:files:2.0.1")
+    implementation("net.thenextlvl.core:files:2.0.2")
     implementation("net.thenextlvl.core:utils:1.0.10")
     implementation("net.thenextlvl.core:nbt:2.3.0")
 
