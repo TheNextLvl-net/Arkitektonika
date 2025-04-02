@@ -5,17 +5,20 @@ import core.nbt.NBTInputStream;
 import io.javalin.http.Context;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor
 public class UploadRoute {
     private final Arkitektonika arkitektonika;
+
+    public UploadRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().post("/upload", this::upload);
@@ -74,7 +77,7 @@ public class UploadRoute {
                         part.getSubmittedFileName());
                 arkitektonika.dataController().persistSchematic(schematic);
                 return schematic;
-            } catch (IOException e) {
+            } catch (SQLException | IOException e) {
                 throw new RuntimeException(e.getMessage(), e);
             }
         });

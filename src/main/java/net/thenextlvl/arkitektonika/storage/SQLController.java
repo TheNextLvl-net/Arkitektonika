@@ -1,8 +1,9 @@
 package net.thenextlvl.arkitektonika.storage;
 
 import core.util.StringUtil;
-import lombok.SneakyThrows;
 import net.thenextlvl.arkitektonika.model.Schematic;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public class SQLController implements DataController {
+    private static final Logger logger = LoggerFactory.getLogger(SQLController.class);
     private static final char[] CHARACTERS = "0123456789abcdef".toCharArray();
     private final Connection connection;
 
@@ -22,89 +24,111 @@ public class SQLController implements DataController {
     }
 
     @Override
-    @SneakyThrows
     public Optional<Schematic> getSchematicByDeletionKey(String key) {
-        return executeQuery(
-                "SELECT * FROM accounting WHERE delete_key = ? LIMIT 1",
-                this::transformRowToRecord, key
-        );
+        try {
+            return executeQuery(
+                    "SELECT * FROM accounting WHERE delete_key = ? LIMIT 1",
+                    this::transformRowToRecord, key
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
     public Optional<Schematic> getSchematicByDownloadKey(String key) {
-        return executeQuery(
-                "SELECT * FROM accounting WHERE download_key = ? LIMIT 1",
-                this::transformRowToRecord, key
-        );
+        try {
+            return executeQuery(
+                    "SELECT * FROM accounting WHERE download_key = ? LIMIT 1",
+                    this::transformRowToRecord, key
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
     public Optional<Schematic> getSchematicByKey(String key) {
-        return executeQuery(
-                "SELECT * FROM accounting WHERE download_key = ? OR delete_key = ? LIMIT 1",
-                this::transformRowToRecord, key, key
-        );
+        try {
+            return executeQuery(
+                    "SELECT * FROM accounting WHERE download_key = ? OR delete_key = ? LIMIT 1",
+                    this::transformRowToRecord, key, key
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
-    public String generateDeletionKey() {
+    public String generateDeletionKey() throws SQLException {
         return generateUniqueKey("SELECT expiration_date FROM accounting WHERE delete_key = ? LIMIT 1");
     }
 
     @Override
-    @SneakyThrows
-    public String generateDownloadKey() {
+    public String generateDownloadKey() throws SQLException {
         return generateUniqueKey("SELECT expiration_date FROM accounting WHERE download_key = ? LIMIT 1");
     }
 
     @Override
-    @SneakyThrows
     public boolean persistSchematic(Schematic schematic) {
-        return executeUpdate("""
-                        INSERT INTO accounting (name, download_key, delete_key, expiration_date, data)
-                        VALUES (?, ?, ?, ?, ?)
-                        """,
-                schematic.name(),
-                schematic.downloadKey(),
-                schematic.deleteKey(),
-                schematic.expirationDate(),
-                schematic.data()
-        ) != 0;
+        try {
+            return executeUpdate("""
+                            INSERT INTO accounting (name, download_key, delete_key, expiration_date, data)
+                            VALUES (?, ?, ?, ?, ?)
+                            """,
+                    schematic.name(),
+                    schematic.downloadKey(),
+                    schematic.deleteKey(),
+                    schematic.expirationDate(),
+                    schematic.data()
+            ) != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
     public boolean removeSchematic(String deletionKey) {
-        return executeUpdate("DELETE FROM accounting WHERE delete_key = ?", deletionKey) != 0;
+        try {
+            return executeUpdate("DELETE FROM accounting WHERE delete_key = ?", deletionKey) != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
     public boolean renameSchematic(Schematic schematic) {
-        return executeUpdate(
-                "UPDATE accounting SET name = ? WHERE delete_key = ?",
-                schematic.name(), schematic.deleteKey()
-        ) != 0;
+        try {
+            return executeUpdate(
+                    "UPDATE accounting SET name = ? WHERE delete_key = ?",
+                    schematic.name(), schematic.deleteKey()
+            ) != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     @Override
-    @SneakyThrows
     public boolean updateExpiration(Schematic schematic) {
-        return executeUpdate(
-                "UPDATE accounting SET expiration_date = ? WHERE delete_key = ?",
-                schematic.expirationDate(), schematic.deleteKey()
-        ) != 0;
+        try {
+            return executeUpdate(
+                    "UPDATE accounting SET expiration_date = ? WHERE delete_key = ?",
+                    schematic.expirationDate(), schematic.deleteKey()
+            ) != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
-    @SneakyThrows
     public int pruneSchematics() {
-        return executeUpdate(
-                "DELETE FROM accounting WHERE expiration_date <= ?",
-                new Date(System.currentTimeMillis())
-        );
+        try {
+            return executeUpdate(
+                    "DELETE FROM accounting WHERE expiration_date <= ?",
+                    new Date(System.currentTimeMillis())
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     private void createAccountingTable() throws SQLException {

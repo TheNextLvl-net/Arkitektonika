@@ -3,13 +3,11 @@ package net.thenextlvl.arkitektonika.version;
 import core.version.SemanticVersion;
 import core.version.github.GitHubVersionChecker;
 import core.version.github.Release;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
-@Getter
 public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     private static final Logger logger = LoggerFactory.getLogger(VersionChecker.class);
 
@@ -19,6 +17,11 @@ public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
 
     public VersionChecker() {
         super("TheNextLvl-net", "Arkitektonika");
+    }
+
+    @Override
+    public SemanticVersion getVersionRunning() {
+        return versionRunning;
     }
 
     @Override

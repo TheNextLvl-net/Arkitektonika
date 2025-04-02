@@ -1,14 +1,16 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
 import java.sql.Date;
 
-@RequiredArgsConstructor
 public class ExpirationRoute {
     private final Arkitektonika arkitektonika;
+
+    public ExpirationRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().get("/expiration/{key}", this::get);

@@ -1,12 +1,14 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
-@RequiredArgsConstructor
 public class SizeRoute {
     private final Arkitektonika arkitektonika;
+
+    public SizeRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().get("/size/{key}", this::get);

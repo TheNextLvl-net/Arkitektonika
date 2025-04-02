@@ -1,14 +1,16 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
 import java.util.Base64;
 
-@RequiredArgsConstructor
 public class Base64Route {
     private final Arkitektonika arkitektonika;
+
+    public Base64Route(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().get("/base64/{key}", this::get);

@@ -1,12 +1,14 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
-@RequiredArgsConstructor
 public class DeleteRoute {
     private final Arkitektonika arkitektonika;
+
+    public DeleteRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().delete("/delete/{key}", this::delete);

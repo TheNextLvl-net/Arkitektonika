@@ -4,9 +4,6 @@ import core.file.format.GsonFile;
 import core.io.IO;
 import io.javalin.Javalin;
 import jakarta.servlet.MultipartConfigElement;
-import lombok.Getter;
-import lombok.SneakyThrows;
-import lombok.experimental.Accessors;
 import net.thenextlvl.arkitektonika.config.Config;
 import net.thenextlvl.arkitektonika.routes.*;
 import net.thenextlvl.arkitektonika.storage.DataController;
@@ -17,11 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Getter
-@Accessors(fluent = true)
 public class Arkitektonika {
     private static final Logger logger = LoggerFactory.getLogger(Arkitektonika.class);
 
@@ -33,7 +29,6 @@ public class Arkitektonika {
 
     private final DataController dataController;
     private final SchematicController schematicController = new SchematicController(this);
-    private final VersionChecker versionChecker = new VersionChecker();
 
     private final MultipartConfigElement multipartConfig = new MultipartConfigElement(
             System.getProperty("java.io.tmpdir"),
@@ -44,14 +39,13 @@ public class Arkitektonika {
 
     private final Javalin javalin = Javalin.create(config -> config.showJavalinBanner = false);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         new Arkitektonika().start();
     }
 
-    @SneakyThrows
-    private Arkitektonika() {
+    private Arkitektonika() throws SQLException {
         this.dataController = new SQLiteController(dataFolder);
-        versionChecker().checkVersion();
+        new VersionChecker().checkVersion();
         setupAccessControl();
         registerRoutes();
     }
@@ -87,5 +81,25 @@ public class Arkitektonika {
 
     private void setupAccessControl() {
         javalin.before(context -> context.header("Access-Control-Allow-Origin", config.allowedOrigin()));
+    }
+
+    public Config config() {
+        return config;
+    }
+
+    public DataController dataController() {
+        return dataController;
+    }
+
+    public SchematicController schematicController() {
+        return schematicController;
+    }
+
+    public MultipartConfigElement multipartConfig() {
+        return multipartConfig;
+    }
+
+    public Javalin javalin() {
+        return javalin;
     }
 }

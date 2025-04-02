@@ -2,6 +2,7 @@ package net.thenextlvl.arkitektonika.storage;
 
 import net.thenextlvl.arkitektonika.model.Schematic;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 public interface DataController {
@@ -11,9 +12,9 @@ public interface DataController {
 
     Optional<Schematic> getSchematicByKey(String key);
 
-    String generateDeletionKey();
+    String generateDeletionKey() throws SQLException;
 
-    String generateDownloadKey();
+    String generateDownloadKey() throws SQLException;
 
     boolean persistSchematic(Schematic schematic);
 

@@ -1,15 +1,17 @@
 package net.thenextlvl.arkitektonika.storage;
 
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-@RequiredArgsConstructor
 public class SchematicController {
     private final Arkitektonika arkitektonika;
+
+    public SchematicController(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public CompletableFuture<Boolean> delete(String deletionKey) {
         return CompletableFuture.supplyAsync(() -> arkitektonika.dataController().removeSchematic(deletionKey));

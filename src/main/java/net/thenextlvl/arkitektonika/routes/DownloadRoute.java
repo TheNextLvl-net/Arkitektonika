@@ -1,12 +1,14 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
-@RequiredArgsConstructor
 public class DownloadRoute {
     private final Arkitektonika arkitektonika;
+
+    public DownloadRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().get("/download/{key}", this::download);

@@ -1,12 +1,14 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
-import lombok.RequiredArgsConstructor;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 
-@RequiredArgsConstructor
 public class RenameRoute {
     private final Arkitektonika arkitektonika;
+
+    public RenameRoute(Arkitektonika arkitektonika) {
+        this.arkitektonika = arkitektonika;
+    }
 
     public void register() {
         arkitektonika.javalin().put("/rename/{key}/{name}", this::rename);
