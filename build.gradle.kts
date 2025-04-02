@@ -20,8 +20,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:26.0.2")
-
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
     implementation("io.javalin:javalin:6.5.0")
 
