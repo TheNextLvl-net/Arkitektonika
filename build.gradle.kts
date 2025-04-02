@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.gradleup.shadow") version "8.3.6"
+    id("com.gradleup.shadow") version "9.0.0-beta11"
 }
 
 group = "net.thenextlvl.arkitektonika"
@@ -27,7 +27,7 @@ dependencies {
     implementation("io.javalin:javalin:6.5.0")
 
     implementation("com.google.code.gson:gson:2.12.1")
-    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("ch.qos.logback:logback-classic:1.5.15")
 
     implementation("net.thenextlvl.core:version-checker:2.0.2")
     implementation("net.thenextlvl.core:annotations:2.0.1")
