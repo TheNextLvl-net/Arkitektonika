@@ -3,11 +3,13 @@ package net.thenextlvl.arkitektonika.version;
 import core.version.SemanticVersion;
 import core.version.github.GitHubVersionChecker;
 import core.version.github.Release;
+import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
+@NullMarked
 public class VersionChecker extends GitHubVersionChecker<SemanticVersion> {
     private static final Logger logger = LoggerFactory.getLogger(VersionChecker.class);
 

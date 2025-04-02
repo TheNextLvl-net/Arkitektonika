@@ -1,7 +1,10 @@
 package net.thenextlvl.arkitektonika.model;
 
+import org.jspecify.annotations.NullMarked;
+
 import java.sql.Date;
 
+@NullMarked
 public class Schematic {
     private final String deleteKey;
     private final String downloadKey;

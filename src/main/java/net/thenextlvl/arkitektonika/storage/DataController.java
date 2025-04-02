@@ -1,10 +1,12 @@
 package net.thenextlvl.arkitektonika.storage;
 
 import net.thenextlvl.arkitektonika.model.Schematic;
+import org.jspecify.annotations.NullMarked;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
+@NullMarked
 public interface DataController {
     Optional<Schematic> getSchematicByDeletionKey(String key);
 

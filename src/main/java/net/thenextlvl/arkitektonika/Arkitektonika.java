@@ -5,11 +5,18 @@ import core.io.IO;
 import io.javalin.Javalin;
 import jakarta.servlet.MultipartConfigElement;
 import net.thenextlvl.arkitektonika.config.Config;
-import net.thenextlvl.arkitektonika.routes.*;
+import net.thenextlvl.arkitektonika.routes.Base64Route;
+import net.thenextlvl.arkitektonika.routes.DeleteRoute;
+import net.thenextlvl.arkitektonika.routes.DownloadRoute;
+import net.thenextlvl.arkitektonika.routes.ExpirationRoute;
+import net.thenextlvl.arkitektonika.routes.RenameRoute;
+import net.thenextlvl.arkitektonika.routes.SizeRoute;
+import net.thenextlvl.arkitektonika.routes.UploadRoute;
 import net.thenextlvl.arkitektonika.storage.DataController;
 import net.thenextlvl.arkitektonika.storage.SQLiteController;
 import net.thenextlvl.arkitektonika.storage.SchematicController;
 import net.thenextlvl.arkitektonika.version.VersionChecker;
+import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +25,7 @@ import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@NullMarked
 public class Arkitektonika {
     private static final Logger logger = LoggerFactory.getLogger(Arkitektonika.class);
 

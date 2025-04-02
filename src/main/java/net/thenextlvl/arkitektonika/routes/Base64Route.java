@@ -2,9 +2,11 @@ package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
 import net.thenextlvl.arkitektonika.Arkitektonika;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Base64;
 
+@NullMarked
 public class Base64Route {
     private final Arkitektonika arkitektonika;
 

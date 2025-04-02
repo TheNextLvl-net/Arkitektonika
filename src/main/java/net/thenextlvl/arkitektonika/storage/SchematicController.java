@@ -2,10 +2,12 @@ package net.thenextlvl.arkitektonika.storage;
 
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
+@NullMarked
 public class SchematicController {
     private final Arkitektonika arkitektonika;
 

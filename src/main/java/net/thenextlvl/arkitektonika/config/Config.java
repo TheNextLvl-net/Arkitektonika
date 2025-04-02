@@ -1,6 +1,7 @@
 package net.thenextlvl.arkitektonika.config;
 
 import com.google.gson.annotations.SerializedName;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * <a href="https://github.com/IntellectualSites/Arkitektonika?tab=readme-ov-file#configuration">Original resource</a>
@@ -11,6 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * @param allowedOrigin    this allows Cross-Origin requests from the specified origin (not documented)
  * @param limiter          refer to {@link Limiter}
  */
+@NullMarked
 public record Config(
         @SerializedName("port") int port,
         @SerializedName("prune") long prune,

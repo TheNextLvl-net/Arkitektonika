@@ -2,8 +2,7 @@ package net.thenextlvl.arkitektonika.storage;
 
 import core.util.StringUtil;
 import net.thenextlvl.arkitektonika.model.Schematic;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jspecify.annotations.NullMarked;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,8 +12,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@NullMarked
 public class SQLController implements DataController {
-    private static final Logger logger = LoggerFactory.getLogger(SQLController.class);
     private static final char[] CHARACTERS = "0123456789abcdef".toCharArray();
     private final Connection connection;
 

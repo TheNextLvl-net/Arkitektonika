@@ -29,7 +29,6 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.15")
 
     implementation("net.thenextlvl.core:version-checker:2.0.2")
-    implementation("net.thenextlvl.core:annotations:2.0.1")
     implementation("net.thenextlvl.core:files:2.0.2")
     implementation("net.thenextlvl.core:utils:1.0.11")
     implementation("net.thenextlvl.core:nbt:2.3.1")

@@ -7,12 +7,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
+import org.jspecify.annotations.NullMarked;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.concurrent.CompletableFuture;
 
+@NullMarked
 public class UploadRoute {
     private final Arkitektonika arkitektonika;
 

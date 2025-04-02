@@ -2,7 +2,9 @@ package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
 import net.thenextlvl.arkitektonika.Arkitektonika;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public class DownloadRoute {
     private final Arkitektonika arkitektonika;
 

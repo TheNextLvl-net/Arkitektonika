@@ -2,9 +2,11 @@ package net.thenextlvl.arkitektonika.routes;
 
 import io.javalin.http.Context;
 import net.thenextlvl.arkitektonika.Arkitektonika;
+import org.jspecify.annotations.NullMarked;
 
 import java.sql.Date;
 
+@NullMarked
 public class ExpirationRoute {
     private final Arkitektonika arkitektonika;
 
