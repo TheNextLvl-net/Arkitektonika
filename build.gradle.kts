@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
-    implementation("io.javalin:javalin:6.5.0")
+    implementation("io.javalin:javalin:6.6.0")
 
     implementation("com.google.code.gson:gson:2.13.0")
     implementation("ch.qos.logback:logback-classic:1.5.18")
