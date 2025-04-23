@@ -29,7 +29,7 @@ dependencies {
     implementation("net.thenextlvl.core:version-checker:2.0.2")
     implementation("net.thenextlvl.core:files:2.0.2")
     implementation("net.thenextlvl.core:utils:1.0.11")
-    implementation("net.thenextlvl.core:nbt:2.3.1")
+    implementation("net.thenextlvl.core:nbt:2.3.2")
 }
 
 tasks.shadowJar {
