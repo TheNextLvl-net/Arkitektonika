@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.xerial:sqlite-jdbc:3.50.2.0")
+    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
     implementation("io.javalin:javalin:6.7.0")
 
     implementation("com.google.code.gson:gson:2.13.1")
