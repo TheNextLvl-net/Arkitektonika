@@ -17,6 +17,7 @@ tasks.compileJava {
 repositories {
     mavenCentral()
     maven("https://repo.thenextlvl.net/releases")
+    maven("https://repo.thenextlvl.net/snapshots")
 }
 
 dependencies {
@@ -29,7 +30,7 @@ dependencies {
     implementation("net.thenextlvl.core:version-checker:2.1.1")
     implementation("net.thenextlvl.core:files:3.0.0")
     implementation("net.thenextlvl.core:utils:1.1.1")
-    implementation("net.thenextlvl.core:nbt:2.4.0")
+    implementation("net.thenextlvl:nbt:3.0.0-pre1")
 }
 
 tasks.shadowJar {
