@@ -1,12 +1,12 @@
 package net.thenextlvl.arkitektonika.routes;
 
 import com.google.gson.JsonObject;
-import core.nbt.NBTInputStream;
 import io.javalin.http.Context;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import net.thenextlvl.arkitektonika.Arkitektonika;
 import net.thenextlvl.arkitektonika.model.Schematic;
+import net.thenextlvl.nbt.NBTInputStream;
 import org.jspecify.annotations.NullMarked;
 
 import java.io.IOException;
