@@ -24,7 +24,7 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.50.3.0")
     implementation("io.javalin:javalin:6.7.0")
 
-    implementation("com.google.code.gson:gson:2.13.2-rc1")
+    implementation("com.google.code.gson:gson:2.13.2")
     implementation("ch.qos.logback:logback-classic:1.5.18")
 
     implementation("net.thenextlvl.core:version-checker:2.1.2")
