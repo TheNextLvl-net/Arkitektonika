@@ -7,7 +7,7 @@ COPY --chown=gradle:gradle src /gradle/src
 
 RUN gradle shadowJar
 
-FROM openjdk:21-slim
+FROM openjdk:25-slim
 
 WORKDIR /app
 
