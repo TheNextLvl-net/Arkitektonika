@@ -12,5 +12,4 @@ FROM eclipse-temurin:25
 WORKDIR /app
 
 COPY --from=build /gradle/build/libs/arkitektonika.jar /app/arkitektonika.jar
-
 CMD ["java", "-Xmx256M", "-jar", "/app/arkitektonika.jar"]
