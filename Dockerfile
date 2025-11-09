@@ -1,4 +1,4 @@
-FROM gradle:jdk21-alpine AS build
+FROM gradle:jdk25-alpine AS build
 
 WORKDIR /gradle
 
@@ -7,7 +7,7 @@ COPY --chown=gradle:gradle src /gradle/src
 
 RUN gradle shadowJar
 
-FROM openjdk:25-slim
+FROM eclipse-temurin:25
 
 WORKDIR /app
 
