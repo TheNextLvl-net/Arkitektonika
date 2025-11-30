@@ -1,6 +1,5 @@
 package net.thenextlvl.arkitektonika.storage;
 
-import core.util.StringUtil;
 import net.thenextlvl.arkitektonika.model.Schematic;
 import org.jspecify.annotations.NullMarked;
 
@@ -11,6 +10,7 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 @NullMarked
 public class SQLController implements DataController {
@@ -144,8 +144,8 @@ public class SQLController implements DataController {
     private String generateUniqueKey(String query) throws SQLException {
         String key;
         do {
-            key = StringUtil.random(CHARACTERS, 32);
-        } while (Boolean.TRUE.equals(executeQuery(query, ResultSet::next, key)));
+            key = randomString();
+        } while (executeQuery(query, ResultSet::next, key));
         return key;
     }
 
@@ -185,6 +185,17 @@ public class SQLController implements DataController {
                 preparedStatement.setObject(i + 1, parameters[i]);
             return preparedStatement.executeUpdate();
         }
+    }
+
+    private static String randomString() {
+        var random = ThreadLocalRandom.current();
+        var builder = new StringBuilder(32);
+
+        for (int i = 0; i < 32; i++) {
+            builder.append(CHARACTERS[random.nextInt(CHARACTERS.length)]);
+        }
+
+        return builder.toString();
     }
 
     private interface ThrowingFunction<T, R> {

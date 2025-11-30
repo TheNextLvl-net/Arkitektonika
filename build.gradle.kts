@@ -27,10 +27,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("ch.qos.logback:logback-classic:1.5.21")
 
-    implementation("net.thenextlvl.core:version-checker:2.1.2")
+    implementation("net.thenextlvl.version-checker:github:1.0.0")
     implementation("net.thenextlvl.core:files:3.0.1")
-    implementation("net.thenextlvl.core:utils:1.1.2")
-    implementation("net.thenextlvl:nbt:3.0.1")
+    implementation("net.thenextlvl:nbt:4.0.0-pre1")
 }
 
 tasks.shadowJar {

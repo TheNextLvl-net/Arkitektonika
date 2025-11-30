@@ -1,8 +1,8 @@
 package net.thenextlvl.arkitektonika.version;
 
-import core.version.SemanticVersion;
-import core.version.github.GitHubVersionChecker;
-import core.version.github.Release;
+import net.thenextlvl.version.SemanticVersion;
+import net.thenextlvl.version.github.GitHubVersionChecker;
+import net.thenextlvl.version.github.Release;
 import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
