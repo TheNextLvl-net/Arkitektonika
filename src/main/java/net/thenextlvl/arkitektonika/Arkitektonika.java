@@ -1,7 +1,6 @@
 package net.thenextlvl.arkitektonika;
 
-import core.file.format.GsonFile;
-import core.io.IO;
+import core.file.formats.GsonFile;
 import io.javalin.Javalin;
 import jakarta.servlet.MultipartConfigElement;
 import net.thenextlvl.arkitektonika.config.Config;
@@ -20,7 +19,7 @@ import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +28,8 @@ import java.util.concurrent.TimeUnit;
 public class Arkitektonika {
     private static final Logger logger = LoggerFactory.getLogger(Arkitektonika.class);
 
-    private final File dataFolder = new File("data");
-    private final Config config = new GsonFile<>(IO.of(dataFolder, "config.json"), new Config(
+    private final Path dataPath = Path.of("data");
+    private final Config config = new GsonFile<>(dataPath.resolve("config.json"), new Config(
             3000, TimeUnit.MINUTES.toMillis(30), 1000000, "*",
             new Config.Limiter(TimeUnit.SECONDS.toMillis(60), 30, 500)
     )).validate().save().getRoot();
@@ -47,12 +46,12 @@ public class Arkitektonika {
 
     private final Javalin javalin = Javalin.create(config -> config.showJavalinBanner = false);
 
-    public static void main(String[] args) throws SQLException {
+    public static void main() throws SQLException {
         new Arkitektonika().start();
     }
 
     private Arkitektonika() throws SQLException {
-        this.dataController = new SQLiteController(dataFolder);
+        this.dataController = new SQLiteController(dataPath);
         new VersionChecker().checkVersion();
         setupAccessControl();
         registerRoutes();

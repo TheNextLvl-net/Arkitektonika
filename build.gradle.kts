@@ -21,6 +21,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.jspecify:jspecify:1.0.0")
+
     implementation("org.xerial:sqlite-jdbc:3.51.1.0")
     implementation("io.javalin:javalin:6.7.0")
 
@@ -28,7 +30,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.21")
 
     implementation("net.thenextlvl.version-checker:github:1.0.0")
-    implementation("net.thenextlvl.core:files:3.0.1")
+    implementation("net.thenextlvl.core:files:4.0.0-pre1")
     implementation("net.thenextlvl:nbt:4.0.0-pre1")
 }
 
