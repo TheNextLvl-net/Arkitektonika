@@ -41,8 +41,8 @@ public class UploadRoute {
                     context.result("File exceeds max size of " + maxSize + " bytes");
                     context.status(413);
                     return null;
-                } else try (var nbt = new NBTInputStream(part.getInputStream())) {
-                    nbt.readNamedTag();
+                } else try (var nbt = NBTInputStream.create(part.getInputStream())) {
+                    var ignored = nbt.readTag();
                     return part;
                 } catch (IOException e) {
                     context.result(e.getMessage());
