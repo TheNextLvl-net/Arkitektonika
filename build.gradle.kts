@@ -24,7 +24,7 @@ dependencies {
     compileOnly("org.jspecify:jspecify:1.0.0")
 
     implementation("org.xerial:sqlite-jdbc:3.51.1.0")
-    implementation("io.javalin:javalin:6.7.0")
+    implementation("io.javalin:javalin:7.0.0-beta.1")
 
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("ch.qos.logback:logback-classic:1.5.23")
