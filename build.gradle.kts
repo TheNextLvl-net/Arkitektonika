@@ -29,7 +29,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("ch.qos.logback:logback-classic:1.5.23")
 
-    implementation("net.thenextlvl.version-checker:github:1.0.0")
+    implementation("net.thenextlvl.version-checker:github:1.0.1")
     implementation("net.thenextlvl.core:files:4.0.0-pre1")
     implementation("net.thenextlvl:nbt:4.0.3")
 }
