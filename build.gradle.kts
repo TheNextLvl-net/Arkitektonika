@@ -31,7 +31,7 @@ dependencies {
 
     implementation("net.thenextlvl.version-checker:github:1.0.1")
     implementation("net.thenextlvl.core:files:4.0.0-pre1")
-    implementation("net.thenextlvl:nbt:4.3.0")
+    implementation("net.thenextlvl:nbt:4.3.1")
 }
 
 tasks.shadowJar {
