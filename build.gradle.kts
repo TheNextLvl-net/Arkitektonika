@@ -27,7 +27,7 @@ dependencies {
     implementation("io.javalin:javalin:6.7.0")
 
     implementation("com.google.code.gson:gson:2.14.0")
-    implementation("ch.qos.logback:logback-classic:1.5.34")
+    implementation("ch.qos.logback:logback-classic:1.5.35")
 
     implementation("net.thenextlvl.version-checker:github:1.0.1")
     implementation("net.thenextlvl.core:files:4.0.0-pre1")
