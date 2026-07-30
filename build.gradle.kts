@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jspecify:jspecify:1.0.0")
+    compileOnly("org.jspecify:jspecify:1.0.1")
 
     implementation("org.xerial:sqlite-jdbc:3.53.2.1")
     implementation("io.javalin:javalin:6.7.0")
