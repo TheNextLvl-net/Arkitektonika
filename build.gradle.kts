@@ -23,7 +23,7 @@ repositories {
 dependencies {
     compileOnly("org.jspecify:jspecify:1.0.1")
 
-    implementation("org.xerial:sqlite-jdbc:3.53.4.0")
+    implementation("org.xerial:sqlite-jdbc:3.54.1.0")
     implementation("io.javalin:javalin:6.7.0")
 
     implementation("com.google.code.gson:gson:2.15.0")
